@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/dailyex
+    username: root
+    password: root
+    
+#JPA Settings
+  jpa:
+    hibernate:
+      ddl-auto: update
+  
