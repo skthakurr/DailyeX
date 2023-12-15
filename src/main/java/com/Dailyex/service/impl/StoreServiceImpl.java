@@ -5,22 +5,22 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.Dailyex.exception.StoreNotFoundException;
-import com.Dailyex.model.Stores;
-import com.Dailyex.repository.StoresRepository;
+import com.Dailyex.model.Store;
+import com.Dailyex.repository.StoreRepository;
 import com.Dailyex.service.StoreService;
 
 @Service
 public class StoreServiceImpl implements StoreService{
 
-	StoresRepository storeRepo;
+	StoreRepository storeRepo;
 	
-	public StoreServiceImpl(StoresRepository storeRepo) {
+	public StoreServiceImpl(StoreRepository storeRepo) {
 		this.storeRepo = storeRepo;
 	}
 
 	@Override
-	public int createStore(Stores store) {
-		Stores isSucess = storeRepo.save(store);
+	public int createStore(Store store) {
+		Store isSucess = storeRepo.save(store);
 		if(isSucess==null)
 			return 0;
 		else 
@@ -28,8 +28,8 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
-	public int updateStore(Stores store) {
-		Stores isSucess = storeRepo.save(store);
+	public int updateStore(Store store) {
+		Store isSucess = storeRepo.save(store);
 		if(isSucess==null)
 			return 0;
 		else 
@@ -37,14 +37,14 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
-	public Stores getStores(int storeId) {
+	public Store getStores(int storeId) {
 		if(storeRepo.findById(storeId).isEmpty())
 			throw new StoreNotFoundException("Requested store does not exist!!!");
 		return storeRepo.findById(storeId).get();
 	}
 
 	@Override
-	public List<Stores> listAllStores() {
+	public List<Store> listAllStores() {
 		return storeRepo.findAll();
 		 
 	}

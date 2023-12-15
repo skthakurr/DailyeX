@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 
 
 @Entity
-public class Stores {
+public class Store {
 	@Id
 	private int  storeId;
 	private String name;
@@ -42,11 +42,11 @@ public class Stores {
 	public void setStoreManager(String storeManager) {
 		this.storeManager = storeManager;
 	}
-	public Stores() {
+	public Store() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Stores(int storeId, String name, String address, String phoneNumber, String storeManager) {
+	public Store(int storeId, String name, String address, String phoneNumber, String storeManager) {
 		super();
 		this.storeId = storeId;
 		this.name = name;

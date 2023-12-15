@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Dailyex.model.Stores;
+import com.Dailyex.model.Store;
 import com.Dailyex.response.ResponseHandler;
 import com.Dailyex.service.StoreService;
 
@@ -41,20 +41,20 @@ public class StoreServiceController {
 
 		//read all the stores from db
 		@GetMapping
-	    public List<Stores> getAllStoreInfo() {
+	    public List<Store> getAllStoreInfo() {
 	        return storeService.listAllStores();
 	    }
 	    
 	    
 		//create store
 	    @PostMapping
-	    public int createStore(@RequestBody Stores store) {
+	    public int createStore(@RequestBody Store store) {
 	    	return storeService.createStore(store);
 	    }
 	    
 	  //update store details
 	    @PutMapping
-	    public int updateStore(@RequestBody Stores store) {
+	    public int updateStore(@RequestBody Store store) {
 	    	return storeService.updateStore(store);
 	    }
 	    
