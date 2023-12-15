@@ -2,6 +2,8 @@ package com.Dailyex.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Dailyex.model.Stores;
+import com.Dailyex.response.ResponseHandler;
 import com.Dailyex.service.StoreService;
 
 @RestController
@@ -26,9 +29,13 @@ public class StoreServiceController {
 	
 	   //read specific store from DB
 		@GetMapping("/{storeId}")
-	    public Stores getStoreInfo(@PathVariable String storeId) {
+	    public ResponseEntity<Object> getStoreInfo(@PathVariable String storeId) {
+		
 			int sId = Integer.parseInt(storeId);
-	        return storeService.getStores(sId);
+			
+			//sending custom response to user which was created in response package
+			return ResponseHandler.reposeBuilder("Requested store data is given here", HttpStatus.OK, storeService.getStores(sId));
+			
 	    }
 
 
