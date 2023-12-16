@@ -1,6 +1,7 @@
 package com.Dailyex.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,8 @@ import com.Dailyex.exception.StoreNotFoundException;
 import com.Dailyex.model.Store;
 import com.Dailyex.repository.StoreRepository;
 import com.Dailyex.service.StoreService;
+
+import javax.swing.text.html.Option;
 
 @Service
 public class StoreServiceImpl implements StoreService{
@@ -19,21 +22,28 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
-	public int createStore(Store store) {
-		Store isSucess = storeRepo.save(store);
-		if(isSucess==null)
-			return 0;
-		else 
-			return 1;
+	public Store createStore(Store store) {
+		return storeRepo.save(store);
 	}
 
 	@Override
-	public int updateStore(Store store) {
-		Store isSucess = storeRepo.save(store);
-		if(isSucess==null)
-			return 0;
-		else 
-			return 1;
+	public Store updateStore(Store updatedStore) {
+
+		int storeId = updatedStore.getStoreId();
+		Optional<Store> optionalStore = storeRepo.findById(storeId);
+		if(optionalStore.isPresent()){
+			Store existingStore = optionalStore.get();
+			existingStore.setName(updatedStore.getName());
+			existingStore.setAddress(updatedStore.getAddress());
+			existingStore.setPhoneNumber(updatedStore.getPhoneNumber());
+			existingStore.setStoreManager(updatedStore.getStoreManager());
+
+			return  storeRepo.save(existingStore);
+		}
+
+		else {
+			throw new StoreNotFoundException("Store does not exist for "+storeId+".");
+		}
 	}
 
 	@Override
@@ -48,6 +58,7 @@ public class StoreServiceImpl implements StoreService{
 		return storeRepo.findAll();
 		 
 	}
+
 
 	@Override
 	public void deleteStores(int storeId) {

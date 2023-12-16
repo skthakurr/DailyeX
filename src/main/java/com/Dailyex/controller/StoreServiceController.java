@@ -29,45 +29,42 @@ public class StoreServiceController {
 	
 	   //read specific store from DB
 		@GetMapping("/{storeId}")
-	    public ResponseEntity<Object> getStoreInfo(@PathVariable String storeId) {
-		
-			int sId = Integer.parseInt(storeId);
-			
+	    public ResponseEntity<Object> getStoreInfo(@PathVariable Integer storeId) {
+
 			//sending custom response to user which was created in response package
-			return ResponseHandler.reposeBuilder("Requested store data is given here", HttpStatus.OK, storeService.getStores(sId));
+			return ResponseHandler.reposeBuilder("Requested store data is given here", HttpStatus.OK, storeService.getStores(storeId));
 			
 	    }
 
 
 		//read all the stores from db
+
 		@GetMapping
-	    public List<Store> getAllStoreInfo() {
-	        return storeService.listAllStores();
-	    }
+		public ResponseEntity<Object> getAllStoreInfo() {
+			return ResponseHandler.reposeBuilder("Requested stores data are given here", HttpStatus.OK, storeService.listAllStores());
+		}
+
 	    
 	    
 		//create store
 	    @PostMapping
-	    public int createStore(@RequestBody Store store) {
-	    	return storeService.createStore(store);
+	    public ResponseEntity<Object> createStore(@RequestBody Store store) {
+	    	return ResponseHandler.reposeBuilder("Store has been created successfully",HttpStatus.OK,storeService.createStore(store));
 	    }
 	    
 	  //update store details
 	    @PutMapping
-	    public int updateStore(@RequestBody Store store) {
-	    	return storeService.updateStore(store);
+	    public ResponseEntity<Object> updateStore(@RequestBody Store store) {
+	    	return ResponseHandler.reposeBuilder("Store has been updated successfully",HttpStatus.OK,storeService.updateStore(store));
 	    }
 	    
 	    
 	  //delete store
 	    @DeleteMapping("/{storeId}")
-	    public void updateStore(@PathVariable String storeId) {
-	    	int sId = Integer.parseInt(storeId);
-	    	storeService.deleteStores(sId);
+	    public ResponseEntity<Object> updateStore(@PathVariable Integer storeId) {
+	    	storeService.deleteStores(storeId);
+			return ResponseHandler.reposeBuilderWithoutData("Store has been deleted successfully",HttpStatus.OK);
 	    }
 
-
-
-	    
 
 }
